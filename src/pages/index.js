@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import {useState} from 'react'
 import initialData from '../data/initial-data';
+// import { loadInitialData } from '../services/task-services';
 import Column from '../components/column';
 import {DragDropContext, resetServerContext} from 'react-beautiful-dnd'
 
@@ -13,7 +14,7 @@ import {DragDropContext, resetServerContext} from 'react-beautiful-dnd'
 
 export default function Home() {
   resetServerContext();
-  const [state, setState] = useState(initialData);
+  const [state, setState] = useState(initialData); // TODO: loading data by call task-services
 
   const onDragEnd = result => {
     const {destination, source, draggableId} = result;

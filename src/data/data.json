@@ -1,0 +1,33 @@
+{
+    "notes": "The data in this JSON document will be stored in MongoDB in the future",
+    "tasks":[ 
+        {
+            "id": "task-1",
+            "content": "Take out the trash"
+        },
+        {
+            "id": "task-2",
+            "content": "Watch favorite show"
+        },
+        {
+            "id": "task-3",
+            "content": "Charge phone"
+        },
+        {
+            "id": "task-4",
+            "content": "Cook dinner"
+        }
+    ],
+    "columns": [
+        {
+            "id": "column-1",
+            "title": "Todo",
+            "taskIds": [
+                "task-1",
+                "task-2",
+                "task-3",
+                "task-4"
+            ]
+        }
+    ]
+}
