@@ -1,9 +1,16 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown"
+  ],
   "editor.formatOnSave": false,
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
+  "editor.codeActionsOnSave": ["source.fixAll.eslint", "source.formatDocument"],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   }
