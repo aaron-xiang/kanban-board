@@ -1,7 +1,9 @@
-import React from 'react'
+'use client';
+
+import React from 'react';
 import styled from 'styled-components';
-import Task from './task'
-import {Droppable} from 'react-beautiful-dnd'
+import Card from './Card';
+import { Droppable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
   margin: 8px;
@@ -15,23 +17,22 @@ const TaskList = styled.div`
   padding: 8px;
 `;
 
-function Column({column, tasks}) {
+function Column({ column, tasks }) {
   return (
     <Container>
       <Title>{column.title}</Title>
       <Droppable droppableId={column.id}>
-        {provided => (
-          <TaskList 
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {tasks.map((task, index) => <Task key={task.id} task={task} index={index}/>)}
+        {(provided) => (
+          <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+            {tasks.map((task, index) => (
+              <Card key={task.id} task={task} index={index} />
+            ))}
             {provided.placeholder}
           </TaskList>
         )}
       </Droppable>
     </Container>
-  )
+  );
 }
 
-export default Column
+export default Column;

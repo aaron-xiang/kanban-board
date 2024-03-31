@@ -1,6 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
-import {Draggable} from 'react-beautiful-dnd'
+'use client';
+
+import React from 'react';
+import styled from 'styled-components';
+import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -9,7 +11,7 @@ const Container = styled.div`
   margin-bottom: 8px;
 `;
 
-function Task({task, index}) {
+function Card({ task, index }) {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
@@ -18,11 +20,11 @@ function Task({task, index}) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-        {task.content} 
+          {task.content}
         </Container>
       )}
     </Draggable>
-  )
+  );
 }
 
-export default Task
+export default Card;
