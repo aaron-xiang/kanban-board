@@ -27,18 +27,23 @@ export default function Home() {
     )
       return;
 
-    const newState = state;
-    const taskIds = Array.from(
-      newState.columns[destination.droppableId].taskIds
-    );
-    // change task orders
-    const fromIndex = source.index;
-    const toIndex = destination.index;
-    const id = taskIds.splice(fromIndex, 1)[0];
-    taskIds.splice(toIndex, 0, id);
-    newState.columns[destination.droppableId].taskIds = taskIds;
-    setState((state) => newState);
-    console.log(state);
+    const newState = { ...state };
+    const column = newState.columns[source.droppableId];
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...column,
+      taskIds: newTaskIds,
+    };
+
+    newState.columns = {
+      ...newState.columns,
+      [newColumn.id]: newColumn,
+    };
+
+    setState(newState);
   };
 
   return (
