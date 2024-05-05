@@ -33,6 +33,6 @@ function Column({ column, tasks }) {
       </Droppable>
     </Container>
   );
-}
+};
 
 export default Column;

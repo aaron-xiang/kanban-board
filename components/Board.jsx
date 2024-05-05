@@ -1,19 +1,41 @@
 'use client';
 
 // import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import initialData from '../data/initial-data';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
+// import axios from 'axios';
 
 // const Title = styled.h1`
 //   font-size: 50px;
 //   color: ${({ theme }) => theme.colors.primary};
 // `
 
+const getTasks = async () => {
+  try {
+    const res = await fetch('/api/tasks', {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch tasks');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log('Error loading tasks: ', error);
+  }
+};
+
 export default function Home() {
   resetServerContext();
   const [state, setState] = useState(initialData);
+ 
+  // const { tasks } = getTasks();
+  // const newState = { ...state };
+  // newState.tasks = tasks;
+  // setState(newState);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;

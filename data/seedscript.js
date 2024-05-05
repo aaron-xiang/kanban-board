@@ -62,33 +62,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
         // Close MongoDB connection
         mongoose.connection.close();
       });
-
-    // // Find documents
-    // DataModel.find({})
-    //   .then((data) => {
-    //     console.log('Data found:', data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error finding data:', error);
-    //   });
-
-    // // Update a document
-    // DataModel.findOneAndUpdate({ /* query */, { /* update */ }, { new: true })
-    //   .then((updatedData) => {
-    //     console.log('Data updated:', updatedData);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error updating data:', error);
-    //   });
-
-    // // Delete a document
-    // DataModel.findOneAndDelete({ /* query */ })
-    //   .then(() => {
-    //     console.log('Data deleted');
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error deleting data:', error);
-    //   });
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
