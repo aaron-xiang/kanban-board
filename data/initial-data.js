@@ -1,13 +1,13 @@
 const initialData = {
   tasks: {
-    'task-1': { id: 'task-1', content: 'Take out the trash' },
-    'task-2': { id: 'task-2', content: 'Watch favorite show' },
-    'task-3': { id: 'task-3', content: 'Charge phone' },
-    'task-4': { id: 'task-4', content: 'Cook dinner' },
+    'task-1': { taskId: 'task-1', content: 'Take out the trash' },
+    'task-2': { taskId: 'task-2', content: 'Watch favorite show' },
+    'task-3': { taskId: 'task-3', content: 'Charge phone' },
+    'task-4': { taskId: 'task-4', content: 'Cook dinner' },
   },
   columns: {
     'column-1': {
-      id: 'column-1',
+      columnId: 'column-1',
       title: 'Todo',
       taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
     },
@@ -15,4 +15,6 @@ const initialData = {
   columnOrder: ['column-1'],
 };
 
-export default initialData;
+export default async function getData() {
+  return initialData;
+};

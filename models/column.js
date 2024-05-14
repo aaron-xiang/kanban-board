@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const columnSchema = new Schema(
   {
     id: String,
-    content: String,
+    title: String,
     taskIds: [String]
   }
 );

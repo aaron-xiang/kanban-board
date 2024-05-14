@@ -40,7 +40,7 @@ export default function AddTopic() {
       <input
         onChange={(e) => setContent(e.target.value)}
         value={content}
-        className='border border-slate-500 px-8 py-2'
+        className='border border-slate-500 px-8 py-2 text-black'
         type='text'
         placeholder='Task name'
       />

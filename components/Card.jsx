@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import RemoveBtn from './RemoveBtn';
 import { HiPencilAlt } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -30,7 +30,7 @@ function Card({ task, index }) {
           </Link> */}
           <div className='flex gap-2'>
             <HiPencilAlt />
-            <RemoveBtn id={task.id}/>  
+            <RemoveBtn id={task._id}/>  
           </div>     
         </Container>
       )}

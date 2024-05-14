@@ -2,40 +2,25 @@
 
 // import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import initialData from '../data/initial-data';
+import getTasks from '@/data/initial-data';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
-// import axios from 'axios';
-
-// const Title = styled.h1`
-//   font-size: 50px;
-//   color: ${({ theme }) => theme.colors.primary};
-// `
-
-const getTasks = async () => {
-  try {
-    const res = await fetch('/api/tasks', {
-      cache: 'no-store',
-    });
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch tasks');
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log('Error loading tasks: ', error);
-  }
-};
 
 export default function Home() {
   resetServerContext();
-  const [state, setState] = useState(initialData);
- 
-  // const { tasks } = getTasks();
-  // const newState = { ...state };
-  // newState.tasks = tasks;
-  // setState(newState);
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const initialData = await getTasks();
+        setState(initialData);
+      } catch (error) {
+        console.log('Error fetching tasks: ', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -67,8 +52,8 @@ export default function Home() {
 
     setState(newState);
   };
-
-  return (
+  
+  return state !== null ? (
     <DragDropContext onDragEnd={onDragEnd}>
       {state.columnOrder.map((columnId) => {
         const column = state.columns[columnId];
@@ -76,5 +61,5 @@ export default function Home() {
         return <Column key={column.id} column={column} tasks={tasks} />;
       })}
     </DragDropContext>
-  );
+  ) : null;
 }
