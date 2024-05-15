@@ -3,13 +3,13 @@
 import { HiOutlineTrash } from 'react-icons/hi';
 import { useRouter } from 'next/navigation';
 
-export default function RemoveBtn({ id }) {
+export default function RemoveBtn({ taskId }) {
   const router = useRouter();
   const removeTask = async () => {
     const confirmed = confirm('Are you sure?');
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/tasks/?id=${id}`, {
+      const res = await fetch(`http://localhost:3000/api/tasks/?taskId=${taskId}`, {
         method: 'DELETE',
       });
 

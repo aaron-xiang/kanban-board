@@ -2,9 +2,10 @@ import connectMongoDB from '@/libs/mongodb';
 import Task from '@/models/task';
 
 export async function POST(request) {
-  const { id, content } = await request.json();
+  const { taskId, content } = await request.json();
+  console.log('Received data:', { taskId, content });
   await connectMongoDB();
-  await Task.create({ id, content });
+  await Task.create({ taskId, content });
   return Response.json({ message: 'Task Created' }, { status: 201 });
 }
 
@@ -15,8 +16,9 @@ export async function GET() {
 }
 
 export async function DELETE(request) {
-  const id = request.nextUrl.searchParams.get('id');
+  const taskId = request.nextUrl.searchParams.get('taskId');
+  console.log('Received data: ', {taskId});
   await connectMongoDB();
-  await Task.findByIdAndDelete(id);
+  await Task.findOneAndDelete({ taskId: taskId });
   return Response.json({ message: 'Task deleted' }, { status: 200 });
 }

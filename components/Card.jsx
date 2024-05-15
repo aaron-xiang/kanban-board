@@ -16,7 +16,7 @@ const Container = styled.div`
 
 function Card({ task, index }) {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task.taskId} index={index}>
       {(provided) => (
         <Container
           {...provided.draggableProps}
@@ -30,7 +30,7 @@ function Card({ task, index }) {
           </Link> */}
           <div className='flex gap-2'>
             <HiPencilAlt />
-            <RemoveBtn id={task._id}/>  
+            <RemoveBtn taskId={task.taskId}/>  
           </div>     
         </Container>
       )}

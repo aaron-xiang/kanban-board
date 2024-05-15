@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const taskSchema = new Schema(
   {
-    id: String,
+    taskId: String,
     content: String,
   }
 );

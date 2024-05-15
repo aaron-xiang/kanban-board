@@ -47,7 +47,7 @@ export default function Home() {
 
     newState.columns = {
       ...newState.columns,
-      [newColumn.id]: newColumn,
+      [newColumn.columnId]: newColumn,
     };
 
     setState(newState);
@@ -58,7 +58,7 @@ export default function Home() {
       {state.columnOrder.map((columnId) => {
         const column = state.columns[columnId];
         const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
-        return <Column key={column.id} column={column} tasks={tasks} />;
+        return <Column key={column.columnId} column={column} tasks={tasks} />;
       })}
     </DragDropContext>
   ) : null;
