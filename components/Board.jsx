@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 import getTasks from '@/data/initial-data';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
+// import seedData from '@/data/seedscript';
 
 export default function Home() {
   resetServerContext();
+  // seedData();
   const [state, setState] = useState(null);
 
   useEffect(() => {

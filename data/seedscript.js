@@ -1,68 +1,38 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Task from '@/models/task';
+import Column from '@/components/Column';
+import connectMongoDB from '@/libs/mongodb';
+import getData from '@/data/initial-data';
 
-// Define schema for tasks
-const taskSchema = new mongoose.Schema({
-  id: String,
-  content: String,
-});
+export default async function seedData() {
+  await connectMongoDB();
 
-// Define schema for columns
-const columnSchema = new mongoose.Schema({
-  id: String,
-  title: String,
-  taskIds: [String],
-});
+  const initialData = await getData();
 
-// Define schema for the overall data model
-const dataSchema = new mongoose.Schema({
-  tasks: [taskSchema],
-  columns: [columnSchema],
-  columnOrder: [String],
-});
+  async function addInitialData() {
+    try {
+      const tasksArray = Object.values(initialData.tasks);
+      // Loop through tasks and create Task instances
+      for (const taskData of tasksArray) {
+        const task = new Task(taskData);
+        // Save each task to the database
+        await task.save();
+      }
+      const columnsArray = Object.values(initialData.columns);
+      // Loop through columns and create Column instances
+      for (const columnData of columnsArray) {
+        const column = new Column(columnData);
+        // Save each column to the database
+        await column.save();
+      }
+      console.log('Initial data added successfully.');
+    } catch (error) {
+      console.error('Error adding initial data:', error);
+    } finally {
+      // Disconnect from MongoDB after adding initial data
+      mongoose.disconnect();
+    }
+  }
 
-// Define model based on the data schema
-const DataModel = mongoose.model('DataModel', dataSchema);
-
-// MongoDB connection URI
-const MONGODB_URI = 'mongodb+srv://aaronxiang:Eh4nS63DnK2Yhped@cluster0.tzcicmo.mongodb.net/';
-
-// Connect to MongoDB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB');
-
-    // Create initial data object
-    const initialData = {
-      tasks: {
-        'task-1': { taskId: 'task-1', content: 'Take out the trash' },
-        'task-2': { taskId: 'task-2', content: 'Watch favorite show' },
-        'task-3': { taskId: 'task-3', content: 'Charge phone' },
-        'task-4': { taskId: 'task-4', content: 'Cook dinner' },
-      },
-      columns: {
-        'column-1': {
-          columnId: 'column-1',
-          title: 'Todo',
-          taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
-        },
-      },
-      columnOrder: ['column-1'],
-    };
-
-    // Create new document with initial data and save to MongoDB
-    const newData = new DataModel(initialData);
-    newData.save()
-      .then(() => {
-        console.log('Data seeded successfully');
-        // Close MongoDB connection
-        mongoose.connection.close();
-      })
-      .catch((error) => {
-        console.error('Error seeding data:', error);
-        // Close MongoDB connection
-        mongoose.connection.close();
-      });
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-  });
+  addInitialData();
+}
