@@ -2,20 +2,18 @@
 
 // import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import getTasks from '@/data/initial-data';
+import getData from '@/data/initial-data';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
-// import seedData from '@/data/seedscript';
 
 export default function Home() {
   resetServerContext();
-  // seedData();
   const [state, setState] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const initialData = await getTasks();
+        const initialData = await getData();
         setState(initialData);
       } catch (error) {
         console.log('Error fetching tasks: ', error);

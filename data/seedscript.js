@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Task from '@/models/task';
-import Column from '@/components/Column';
+import Column from '@/models/column';
 import connectMongoDB from '@/libs/mongodb';
 import getData from '@/data/initial-data';
 
@@ -18,6 +18,9 @@ export default async function seedData() {
         // Save each task to the database
         await task.save();
       }
+
+      console.log('Tasks added successfully');
+
       const columnsArray = Object.values(initialData.columns);
       // Loop through columns and create Column instances
       for (const columnData of columnsArray) {
@@ -25,6 +28,9 @@ export default async function seedData() {
         // Save each column to the database
         await column.save();
       }
+
+      console.log('Columns added successfully');
+
       console.log('Initial data added successfully.');
     } catch (error) {
       console.error('Error adding initial data:', error);
