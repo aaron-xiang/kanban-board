@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 import RemoveBtn from './RemoveBtn';
 import { HiPencilAlt } from 'react-icons/hi';
-// import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -25,11 +25,10 @@ function Card({ task, index }) {
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
         >
           {task.content}
-          {/* <Link href={`/editTask/${task.id}`}>
-            <HiPencilAlt />
-          </Link> */}
           <div className='flex gap-2'>
-            <HiPencilAlt />
+            <Link href={`/editTask/${task.taskId}`}>
+              <HiPencilAlt />
+            </Link>
             <RemoveBtn taskId={task.taskId}/>  
           </div>     
         </Container>
