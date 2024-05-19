@@ -3,11 +3,26 @@ import Column from '@/models/column';
 import Task from '@/models/task';
 
 export async function POST(request) {
-  const { taskId, content } = await request.json();
-  console.log('Received data:', { taskId, content });
+  const { columnId, taskId, content } = await request.json();
+  console.log('Received data:', { columnId, taskId, content });
+
   await connectMongoDB();
+
+  // create new task
   await Task.create({ taskId, content });
-  return Response.json({ message: 'Task Created' }, { status: 201 });
+
+  // update corresponding column
+  const updatedColumn = await Column.findOneAndUpdate(
+    { columnId: columnId },
+    { $push: { taskIds: taskId } },
+    { new: true }
+  );
+
+  if (!updatedColumn) {
+    return new Response(JSON.stringify({ message: 'Column not found' }), { status: 404 });
+  }
+
+  return new Response(JSON.stringify({ message: 'Task Created and added to column' }), { status: 201 });
 }
 
 export async function GET() {

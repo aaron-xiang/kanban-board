@@ -3,8 +3,8 @@ import Task from '@/models/task';
 
 export async function PUT(request, { params }) {
   const { id } = params;
-  const { newTitle: title, newDescription: description } = await request.json();
+  const { newContent: content } = await request.json();
   await connectMongoDB();
-  await Task.findByIdAndUpdate(id, { title, description });
+  await Task.findByIdAndUpdate(id, { content });
   return Response.json({ message: 'Task updated' }, { status: 200 });
 }
