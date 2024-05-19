@@ -2,8 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const taskSchema = new Schema(
   {
-    id: String,
-    title: String,
+    taskId: String,
+    content: String,
   }
 );
 

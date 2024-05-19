@@ -1,19 +1,27 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 // import styled from 'styled-components';
-import { useState } from 'react';
-import initialData from '../data/initial-data';
+// import getData from '@/data/initial-data';
+import getData from '@/data/getData';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
 
-// const Title = styled.h1`
-//   font-size: 50px;
-//   color: ${({ theme }) => theme.colors.primary};
-// `
-
 export default function Home() {
   resetServerContext();
-  const [state, setState] = useState(initialData);
+  const [state, setState] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const initialData = await getData();
+        setState(initialData);
+      } catch (error) {
+        console.log('Error fetching tasks: ', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -40,19 +48,19 @@ export default function Home() {
 
     newState.columns = {
       ...newState.columns,
-      [newColumn.id]: newColumn,
+      [newColumn.columnId]: newColumn,
     };
 
     setState(newState);
   };
-
-  return (
+  
+  return state !== null ? (
     <DragDropContext onDragEnd={onDragEnd}>
       {state.columnOrder.map((columnId) => {
         const column = state.columns[columnId];
         const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
-        return <Column key={column.id} column={column} tasks={tasks} />;
+        return <Column key={column.columnId} column={column} tasks={tasks} />;
       })}
     </DragDropContext>
-  );
+  ) : null;
 }

@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import Board from '@/app/components/Board';
+import Board from '@/components/Board';
+// import seedData from '@/data/seedscript';
 
 function Home() {
+  // seedData();
   return <Board />;
 }
 
