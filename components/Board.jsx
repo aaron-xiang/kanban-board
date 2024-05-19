@@ -23,7 +23,7 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
     console.log(destination, source, draggableId);
 
@@ -52,6 +52,29 @@ export default function Home() {
     };
 
     setState(newState);
+
+    // Make an API call to update the taskIds list in the backend
+    try {
+      const response = await fetch('/api/columns', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          columnId: newColumn.columnId,
+          taskIds: newTaskIds,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update column in the backend');
+      }
+
+      const data = await response.json();
+      console.log('Backend update successful:', data);
+    } catch (error) {
+      console.error('Error updating column in the backend:', error);
+    }
   };
   
   return state !== null ? (
