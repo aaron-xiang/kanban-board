@@ -1,8 +1,9 @@
 import EditTaskForm from '@/components/EditTaskForm';
 
-const getTaskById = async (id) => {
+const getTaskById = async (taskId) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/tasks/${taskId}`, {
+      method: 'GET',
       cache: 'no-store',
     });
 
@@ -23,9 +24,7 @@ const getTaskById = async (id) => {
 };
 
 export default async function EditTask({ params }) {
-  const { id } = params;
-  const { task } = await getTaskById(id);
-  const { taskId, content } = task;
+  const { taskId } = params;
 
-  return <EditTaskForm id={id} taskId={taskId} content={content} />;
+  return <EditTaskForm taskId={taskId} />;
 }

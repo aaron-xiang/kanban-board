@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function EditTopicForm({ taskId, content }) {
-  const [newContent, setNewContent] = useState(content);
+export default function EditTopicForm({ taskId }) {
+  const [newContent, setNewContent] = useState('');
 
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export default function EditTopicForm({ taskId, content }) {
       <input
         onChange={(e) => setNewContent(e.target.value)}
         value={newContent}
-        className="border border-slate-500 px-8 py-2"
+        className="border border-slate-500 px-8 py-2 text-black"
         type="text"
         placeholder="Topic Content"
       />
