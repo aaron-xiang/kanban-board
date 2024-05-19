@@ -1,8 +1,9 @@
 'use client';
 
-// import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import getData from '@/data/initial-data';
+// import styled from 'styled-components';
+// import getData from '@/data/initial-data';
+import getData from '@/data/getData';
 import Column from './Column';
 import { DragDropContext, resetServerContext } from 'react-beautiful-dnd';
 

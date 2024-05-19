@@ -17,7 +17,7 @@ const TaskList = styled.div`
   padding: 8px;
 `;
 
-function Column({ column, tasks }) {
+function ColumnComponent({ column, tasks }) {
   return (
     <Container>
       <Title>{column.title}</Title>
@@ -35,4 +35,4 @@ function Column({ column, tasks }) {
   );
 };
 
-export default Column;
+export default ColumnComponent;

@@ -30,15 +30,13 @@ export default async function seedData() {
       }
 
       console.log('Columns added successfully');
-
-      console.log('Initial data added successfully.');
+      
     } catch (error) {
       console.error('Error adding initial data:', error);
-    } finally {
-      // Disconnect from MongoDB after adding initial data
-      mongoose.disconnect();
-    }
+    } 
   }
 
-  addInitialData();
+  await addInitialData();
+
+  mongoose.disconnect();
 }
