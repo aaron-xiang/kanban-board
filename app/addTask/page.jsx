@@ -1,20 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function AddTopic() {
-  const [columnId, setColumnId] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const columnId = searchParams.get('columnId');
   const [taskId, setTaskId] = useState('');
   const [content, setContent] = useState('');
 
-  const router = useRouter();
+  useEffect(() => {
+    console.log('columnId:', columnId);
+  }, [columnId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!content) {
       alert('Please name your task');
+      return;
+    }
+
+    if (!columnId) {
+      alert('Column ID is missing');
       return;
     }
 
@@ -37,16 +46,13 @@ export default function AddTopic() {
     }
   };
 
+  // Wait for columnId to be available before rendering the form
+  if (!columnId) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input
-        onChange={(e) => setColumnId(e.target.value)}
-        value={columnId}
-        className="border border-slate-500 px-8 py-2 text-black"
-        type="text"
-        placeholder="Column ID"
-      />
-
       <input
         onChange={(e) => setTaskId(e.target.value)}
         value={taskId}

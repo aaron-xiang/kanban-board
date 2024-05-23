@@ -25,12 +25,12 @@ function Card({ task, index }) {
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
         >
           {task.content}
-          <div className='flex gap-2'>
+          <div className="flex gap-2">
             <Link href={`/editTask/${task.taskId}`}>
               <HiPencilAlt />
             </Link>
-            <RemoveBtn taskId={task.taskId}/>  
-          </div>     
+            <RemoveBtn taskId={task.taskId} />
+          </div>
         </Container>
       )}
     </Draggable>
