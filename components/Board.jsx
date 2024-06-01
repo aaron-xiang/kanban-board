@@ -90,7 +90,7 @@ export default function Home() {
     }
   };
 
-  const addColumn = () => {
+  const addColumn = async () => {
     if (!newColumnTitle) return;
 
     const newColumnId = `column-${Date.now()}`;
@@ -98,7 +98,7 @@ export default function Home() {
       columnId: newColumnId,
       title: newColumnTitle,
       taskIds: [],
-    };
+    }; 
 
     const newState = {
       ...state,
@@ -112,7 +112,30 @@ export default function Home() {
     setState(newState);
     setNewColumnTitle('');
 
-    // Optionally, you can make an API call to save the new column to the backend
+    // API call to save column to backend 
+
+    try {
+      const response = await fetch('/api/columns', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          columnId: newColumnId,
+          columnTitle: newColumnTitle,
+          taskIds: [],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save the new column to the backend');
+      }
+
+      const data = await response.json();
+      console.log('Backend save successful:', data);
+    } catch (error) {
+      console.error('Error saving the new column to the backend:', error);
+    }
   };
 
   return state !== null ? (
