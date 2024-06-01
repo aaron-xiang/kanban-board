@@ -7,7 +7,6 @@ export default function AddTopic() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const columnId = searchParams.get('columnId');
-  const [taskId, setTaskId] = useState('');
   const [content, setContent] = useState('');
 
   useEffect(() => {
@@ -28,12 +27,17 @@ export default function AddTopic() {
     }
 
     try {
+      const newTaskId = `task-${Date.now()}`;
+      console.log('Generated task id: ', newTaskId);
+      const body = JSON.stringify({ columnId, taskId: newTaskId, content });
+      console.log('Request body: ', body);
+
       const res = await fetch('http://localhost:3000/api/tasks', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({ columnId, taskId, content }),
+        body
       });
 
       if (res.ok) {
@@ -53,14 +57,6 @@ export default function AddTopic() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input
-        onChange={(e) => setTaskId(e.target.value)}
-        value={taskId}
-        className="border border-slate-500 px-8 py-2 text-black"
-        type="text"
-        placeholder="Task ID"
-      />
-
       <input
         onChange={(e) => setContent(e.target.value)}
         value={content}
